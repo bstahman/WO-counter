@@ -179,15 +179,17 @@ async function main() {
 
                     console.log(`got new event, checking...`)
 
+                    console.log(event)
+
                     // if event is task added
                     if (event.action == 'added' &&
                         event.type == 'task' &&
-                        event.parent.name == `WO's`) {
+                        event.parent.name == `Work Orders`) {
 
                         console.log("new event is task added")
 
                         let response = await makePutRequest(`/api/1.0/tasks/${event.resource.gid}`,
-                                                          {"data": {"custom_fields":{[WOFieldID]:lastWO.index+1}}});
+                                                          {"data": {"custom_fields":{[WOFieldID]:`WO-${lastWO.index+1}`}}});
 
                         if(response.data) {
 
